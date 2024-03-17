@@ -4,6 +4,7 @@ import {fetchAllUser} from "../../services/UserService";
 import ReactPaginate from "react-paginate";
 // import {connect} from "react-redux";
 import ModalAddNew from "../ModalAddNew";
+import {Container} from "react-bootstrap";
 
 class TableUsers extends React.Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class TableUsers extends React.Component {
         this.handleGetUsers()
     }
 
-    handleGetUsers = async (page=1) => {
+    handleGetUsers = async (page = 1) => {
         let res = await fetchAllUser(page);
         if (res && res.data) {
             this.setState({
@@ -51,12 +52,14 @@ class TableUsers extends React.Component {
             })
         }
     }
+
     render() {
         let {users, totalPages, isShow, isEdit, user} = this.state;
         return (
-            <>
+            <Container>
                 <div>
-                    <button className={"btn btn-success my-3"} onClick={() => this.handleShow('add')}>Add new user</button>
+                    <button className={"btn btn-success my-3"} onClick={() => this.handleShow('add')}>Add new user
+                    </button>
                 </div>
                 <Table striped bordered hover>
                     <thead>
@@ -79,7 +82,9 @@ class TableUsers extends React.Component {
                                     <td>{user.first_name}</td>
                                     <td>{user.last_name}</td>
                                     <td>
-                                        <button className={"btn btn-warning mx-3"} onClick={() => this.handleShow('edit', user)}>Edit</button>
+                                        <button className={"btn btn-warning mx-3"}
+                                                onClick={() => this.handleShow('edit', user)}>Edit
+                                        </button>
                                         <button className={"btn btn-danger mx-3"}>Delete</button>
                                     </td>
                                 </tr>
@@ -110,12 +115,12 @@ class TableUsers extends React.Component {
                     containerClassName={"pagination"}
                     activeClassName={"active"}
                 ></ReactPaginate>
-            </>
+            </Container>
         )
     }
 }
 
-// const mapStateToProps = (state) => ({name: state.name, job: state.job })
+// const mapStateToProps = (state) => ({name: state.name, job: state.job})
 // const mapDispatchToProps = (dispatch) => {
 //     return {
 //         getUsers: (users) => dispatch({type: 'GET_USERS', payload: users})
